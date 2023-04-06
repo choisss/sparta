@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>채팅 페이지</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis">
+    <script>
+        const chatInput = document.querySelector('.input-box input');
+        const chatBox = document.querySelector('.chat-box');
+
+        chatInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            const message = this.value;
+            if (!message) return;
+
+            const chat = document.createElement('div');
+            chat.classList.add('chat', 'my-chat');
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+            messageDiv.innerHTML = `<p>${message}</p>`;
+
+            const profileDiv = document.createElement('div');
+            profileDiv.className = 'profile';
+            profileDiv.innerHTML = '<img src="profile.jpg" alt="프로필 이미지">';
+
+            chat.appendChild(profileDiv);
+            chat.appendChild(messageDiv);
+            chatBox.appendChild(chat);
+
+            this.value = '';
+          }
+        });
+
+        const chatbox = document.querySelector('.chat-box');
+        const messageInput = document.querySelector('.input-box input');
+        const sendBtn = document.querySelector('.send-btn');
+
+        function sendMessage() {
+            // 입력된 메시지 가져오기
+            const message = messageInput.value.trim();
+            if (!message) {
+                return;
+            }
+
+            // 메시지 박스에 새로운 메시지 추가
+            const newMessage = document.createElement('div');
+            newMessage.classList.add('chat');
+
+            const profileDiv = document.createElement('div');
+            profileDiv.className = 'profile';
+            profileDiv.innerHTML = '<img src="profile.jpg" alt="프로필 이미지">';
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+            messageDiv.textContent = message;
+
+            newMessage.appendChild(profileDiv);
+            newMessage.appendChild(messageDiv);
+            chatbox.appendChild(newMessage);
+
+            // 입력 박스 초기화
+            messageInput.value = '';
+        }
+
+        sendBtn.addEventListener('click', sendMessage);
+        messageInput.addEventListener('keydown', (event) => {
+            if (event.keyCode === 13) {
+                sendMessage();
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="header">
+            <div class="left-col">
+              <div class="back-btn" onclick="location.href='index.html'">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            </div>
+                <div class="profile">
+                  <img src="이미지/차은우.jpg" alt="이미지">
+                    <h3>사용자 이름</h3>
+                </div>
+            </div>
+            <div class="right-col">
+                <i class="fa fa-search" aria-hidden="true"></i>
+                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+            </div>
+        </div>
+        <div class="chat-box">
+            <div class="chat">
+                <div class="profile">
+                    <img src="profile.jpg" alt="프로필 이미지">
+                </div>
+                <div class="message">
+                    <p>안녕하세요 어떻게 지내세요?</p>
+                  </div>
+              </div>
+              <div class="chat my-chat">
+                  <div class="message">
+                      <p>저도 잘 지내고 있습니다. 감사합니다.</p>
+                  </div>
+                  <div class="profile">
+                      <img src="profile.jpg" alt="프로필 이미지">
+                  </div>
+              </div>
+          </div>
+          <div class="input-box">
+              <input id="message-input" type="text" placeholder="메시지를 입력하세요...">
+              <i class="fa fa-paperclip" aria-hidden="true"></i>
+              <i class="fa fa-camera" aria-hidden="true"></i>
+              <i class="fa fa-microphone" aria-hidden="true" id="send-btn"></i>
+          </div>
+      </div>
+      <script src="script.js"></script>
+      </body>
+      </html>
